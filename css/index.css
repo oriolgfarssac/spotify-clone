@@ -180,7 +180,7 @@ body {
   gap: 30px;
   width: 95%;
   margin-inline: 40px;
-  height: 625px;
+  height: 525px;
   margin-bottom: 20px;
   overflow-y: scroll;
   margin-top: 20px;
@@ -200,7 +200,7 @@ body {
   gap: 20px;
   width: 300px;
   height: auto;
-  background-color: #6219a7;
+  background-color: #656464;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 0px;
@@ -249,4 +249,4 @@ body {
   font-weight: normal;
   color: white;
   margin-top: 0px;
-}/*# sourceMappingURL=style.css.map */
+}

@@ -1,7 +1,7 @@
 import { clientId, clientSecret } from "./env.js";
 
 const URL = "https://accounts.spotify.com/authorize";
-const redirectUri = "http://127.0.0.1:5501/playlist.html";
+const redirectUri = "http://127.0.0.1:5500/playlist.html";
 const scopes = "playlist-modify-private user-library-modify playlist-modify-public";
 
 const searchButton = document.querySelector(".spotify-clone__search-button");
@@ -18,9 +18,7 @@ playlistButton.addEventListener("click", () => {
   autoritzar();
 });
 
-// Event Listeners
 searchButton.addEventListener("click", () => {
-  console.log("Has clickado!");
   const query = searchInput.value;
   if (query.length <= 2) {
     alert("Introdueix almenys 2 caràcters");
@@ -135,13 +133,22 @@ const createSongs = (tracks) => {
     trackAlbum.textContent = `Album: ${track.album.name}`;
     trackAlbum.classList.add("spotify-clone__track-album");
 
+    const addButton = document.createElement("button");
+    addButton.textContent = "Add to playlist";
+    addButton.classList.add("spotify-clone__track-add-button");
+    addButton.addEventListener("click", () => {
+      addToPlaylist(track);
+    });      
+
+    
     trackDetails.appendChild(trackTitle);
     trackDetails.appendChild(trackArtist);
     trackDetails.appendChild(trackAlbum);
-
-
+    
+    
     trackElement.appendChild(albumImage);
     trackElement.appendChild(trackDetails);
+    trackDetails.appendChild(addButton);
 
     tracksContainer.appendChild(trackElement);
   });
@@ -181,3 +188,20 @@ const autoritzar = function () {
   window.location.assign(authUrl);
 };
 
+const addToPlaylist = (track) => {
+  console.log(track);
+
+  let savedSongs = JSON.parse(localStorage.getItem("savedSongs")) || [];
+
+  const trackExists = savedSongs.some(savedTrack => savedTrack.id === track.id);
+
+  if (trackExists) {
+    alert("Song already added to playlist");
+    return;
+  } else {
+    alert("Song added to playlist");
+    savedSongs.push(track);
+    localStorage.setItem("savedSongs", JSON.stringify(savedSongs));
+    console.log(savedSongs);
+  }
+};
